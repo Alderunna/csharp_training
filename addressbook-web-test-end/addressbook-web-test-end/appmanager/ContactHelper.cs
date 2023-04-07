@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +24,38 @@ namespace WebAddressbookTests
             FillContactForm(contact);
             SubmitContactCreation();
             ReturnToContactPage();
+            return this;
+        }
+
+        public ContactHelper Modify(int v, ContactData newData)
+        {
+            manager.Navigator.GoToContactsPage();
+            InitContactModification(v);
+            FillContactForm(newData);
+            SubmitGroupModification();
+            ReturnToContactPage();
+            return this;
+        }
+
+
+        public ContactHelper Remove(int v)
+        {
+            manager.Navigator.GoToContactsPage();
+            SelectContact(v);
+            RemoveContact();
+            return this;
+        }
+
+        private ContactHelper RemoveContact()
+        {
+            driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
+            driver.SwitchTo().Alert().Accept();
+            return this;
+        }
+
+        private ContactHelper SelectContact(int v)
+        {
+            driver.FindElement(By.XPath("//tr[" + v + "] / td / input")).Click();
             return this;
         }
 
@@ -55,5 +88,19 @@ namespace WebAddressbookTests
             driver.Navigate().GoToUrl("http://localhost/addressbook/index.php");
             return this;
         }
+
+        public ContactHelper InitContactModification(int index)
+        {
+            driver.FindElement(By.XPath("//table[@id='maintable']/tbody/tr[" + index + "]/td[8]/a/img")).Click();
+            return this;
+        }
+
+        public ContactHelper SubmitGroupModification()
+        {
+            driver.FindElement(By.Name("update")).Click();
+            return this;
+        }
+
+      
     }
 }
