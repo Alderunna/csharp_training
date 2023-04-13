@@ -28,7 +28,6 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GoToGroupsPage();
 
-            CheckExistGroups(newData);
             SelectGroup(v);
             InitGroupModification();
             FillGroupForm(newData);
@@ -36,19 +35,21 @@ namespace WebAddressbookTests
             ReturnToGroupsPage();
             return this;
         }
-        public void CheckExistGroups(GroupData group)
+        public GroupHelper CheckExistGroups()
         {
+            GroupData group = new GroupData("fff");
+
             if (IsElementPresent(By.Name("selected[]")))
             {
-                return;
+                return this;
             }
             Create(group);
+            return this;
         }
-        public GroupHelper Remove(GroupData group, int v)
+        public GroupHelper Remove(int v)
         {            
             manager.Navigator.GoToGroupsPage();
 
-            CheckExistGroups(group);
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupsPage();
