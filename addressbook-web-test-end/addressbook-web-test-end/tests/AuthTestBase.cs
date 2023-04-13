@@ -7,19 +7,12 @@ using System.Threading.Tasks;
 
 namespace WebAddressbookTests
 {
-
-    [TestFixture]
-    public class ContactRemovalTests : AuthTestBase
+    public class AuthTestBase : TestBase
     {
-
-        [Test]
-        public void ContactRemovalTest()
+        [SetUp]
+        public void SetupLogin()
         {
-        
-
-
-            app.Contacts.Remove(3);
-
+            app.Auth.Login(new AccountData("admin", "secret"));
         }
     }
 }

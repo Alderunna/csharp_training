@@ -10,12 +10,14 @@ using OpenQA.Selenium.Support.UI;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class GroupRemovalTests : TestBase
+    public class GroupRemovalTests : AuthTestBase
     {  
         [Test]
         public void GroupRemovalTest()
         {
-            app.Groups.Remove(1);
+            GroupData group = new GroupData("aaa");
+
+            app.Groups.Remove(group, 1);
            
         }
     }

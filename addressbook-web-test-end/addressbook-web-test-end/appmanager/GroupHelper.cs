@@ -27,6 +27,8 @@ namespace WebAddressbookTests
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigator.GoToGroupsPage();
+
+            CheckExistGroups(newData);
             SelectGroup(v);
             InitGroupModification();
             FillGroupForm(newData);
@@ -34,12 +36,19 @@ namespace WebAddressbookTests
             ReturnToGroupsPage();
             return this;
         }
-
-
-
-        public GroupHelper Remove(int v)
+        public void CheckExistGroups(GroupData group)
         {
+            if (IsElementPresent(By.Name("selected[]")))
+            {
+                return;
+            }
+            Create(group);
+        }
+        public GroupHelper Remove(GroupData group, int v)
+        {            
             manager.Navigator.GoToGroupsPage();
+
+            CheckExistGroups(group);
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupsPage();
@@ -54,17 +63,14 @@ namespace WebAddressbookTests
 
         public GroupHelper FillGroupForm(GroupData group)
         {
-            driver.FindElement(By.Name("group_name")).Click();
-            driver.FindElement(By.Name("group_name")).Clear();
-            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
-            driver.FindElement(By.Name("group_header")).Click();
-            driver.FindElement(By.Name("group_header")).Clear();
-            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
-            driver.FindElement(By.Name("group_footer")).Click();
-            driver.FindElement(By.Name("group_footer")).Clear();
-            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+
+            Type(By.Name("group_name"), group.Name);
+            Type(By.Name("group_header"), group.Header);
+            Type(By.Name("group_footer"), group.Footer);
             return this;
         }
+
+        
 
         public GroupHelper SubmitGroupCreation()
         {
@@ -101,5 +107,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("edit")).Click();
             return this;
         }
+
+
     }
 }
