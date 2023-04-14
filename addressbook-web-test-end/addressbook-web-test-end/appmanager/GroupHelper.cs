@@ -39,6 +39,8 @@ namespace WebAddressbookTests
         {
             GroupData group = new GroupData("fff");
 
+            manager.Navigator.GoToGroupsPage();
+
             if (IsElementPresent(By.Name("selected[]")))
             {
                 return this;
