@@ -43,7 +43,7 @@ namespace WebAddressbookTests
 
         public ContactHelper CheckExistContacts()
         {
-            ContactData contact = new ContactData("Ppp");
+            ContactData contact = new ContactData("Аля", "Улю");
 
             manager.Navigator.GoToContactsPage();
 
@@ -97,6 +97,19 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.Name("update")).Click();
             return this;
-        }      
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.GoToContactsPage();
+            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+            foreach (IWebElement element in elements)
+            {
+                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                contacts.Add(new ContactData(cells[1].Text, cells[2].Text));
+            }
+            return contacts;
+        }
     }
 }

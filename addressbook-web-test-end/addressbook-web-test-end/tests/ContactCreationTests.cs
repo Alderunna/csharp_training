@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Principal;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -17,11 +18,19 @@ namespace WebAddressbookTests
         [Test]
         public void ContactCreationTest()
         {         
-            ContactData contact = new ContactData("Alex");
-            contact.Lastname = "Kov";
+            ContactData contact = new ContactData("Вася", "Пупкин");
+
+
+            List<ContactData> oldContacts = app.Contacts.GetContactList();
 
             app.Contacts.Create(contact);
-            //driver.FindElement(By.LinkText("Logout")).Click();
+
+            List<ContactData> newContacts = app.Contacts.GetContactList();
+            oldContacts.Add(contact);
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
+
         } 
     }
 }
