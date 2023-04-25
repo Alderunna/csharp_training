@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using WebAddressbookTests;
 
 namespace WebAddressbookTests
 
@@ -29,7 +30,7 @@ namespace WebAddressbookTests
             manager.Navigator.GoToContactsPage();
             InitContactModification(v);
             FillContactForm(newData);
-            SubmitGroupModification();
+            SubmitContactModification();
             ReturnToContactPage();
             return this;
         }
@@ -60,6 +61,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
             driver.SwitchTo().Alert().Accept();
             driver.FindElement(By.CssSelector("div.msgbox"));
+            contactCache = null;
             return this;
         }
         private ContactHelper SelectContact(int v)
@@ -81,6 +83,7 @@ namespace WebAddressbookTests
         public ContactHelper SubmitContactCreation()
         {
             driver.FindElement(By.XPath("//div[@id='content']/form/input[21]")).Click();
+            contactCache = null;
             return this;
         }
         public ContactHelper ReturnToContactPage()
@@ -94,23 +97,35 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("//img[@alt='Edit']")).Click();
             return this;
         }
-        public ContactHelper SubmitGroupModification()
+        public ContactHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
+            contactCache = null;
             return this;
         }
 
+        private List<ContactData> contactCache = null;
+
         public List<ContactData> GetContactList()
         {
-            List<ContactData> contacts = new List<ContactData>();
-            manager.Navigator.GoToContactsPage();
-            ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
-            foreach (IWebElement element in elements)
+            if (contactCache == null) 
             {
-                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
-                contacts.Add(new ContactData(cells[2].Text, cells[1].Text));
-            }
-            return contacts;
+                contactCache = new List<ContactData>();
+                manager.Navigator.GoToContactsPage();
+                ICollection<IWebElement> elements = driver.FindElements(By.Name("entry"));
+                foreach (IWebElement element in elements)
+                {
+                    IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                    contactCache.Add(new ContactData(cells[2].Text, cells[1].Text));
+                }
+            }          
+            
+            return new List<ContactData>(contactCache);
+        }
+
+        public int GetContactCount()
+        {
+            return driver.FindElements(By.Name("entry")).Count;
         }
     }
 }
