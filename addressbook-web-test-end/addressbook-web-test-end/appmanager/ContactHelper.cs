@@ -108,7 +108,7 @@ namespace WebAddressbookTests
 
         public List<ContactData> GetContactList()
         {
-            if (contactCache == null) 
+            if (contactCache == null)
             {
                 contactCache = new List<ContactData>();
                 manager.Navigator.GoToContactsPage();
@@ -116,15 +116,21 @@ namespace WebAddressbookTests
                 foreach (IWebElement element in elements)
                 {
                     IList<IWebElement> cells = element.FindElements(By.TagName("td"));
-                    contactCache.Add(new ContactData(cells[2].Text, cells[1].Text));
+                   
+                    contactCache.Add(new ContactData(cells[2].Text, cells[1].Text)
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+
+                    });
                 }
-            }          
-            
+            }
+
             return new List<ContactData>(contactCache);
         }
 
         public int GetContactCount()
         {
+            manager.Navigator.GoToContactsPage();
             return driver.FindElements(By.Name("entry")).Count;
         }
     }
