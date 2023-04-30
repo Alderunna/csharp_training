@@ -69,6 +69,7 @@
     <Compile Include="appmanager\GroupHelper.cs" />
     <Compile Include="tests\AuthTestBase.cs" />
     <Compile Include="tests\ContactModificationTests.cs" />
+    <Compile Include="tests\ContactnformationTests.cs" />
     <Compile Include="tests\ContactRemovalTests.cs" />
     <Compile Include="tests\GroupModificationTests.cs" />
     <Compile Include="tests\GroupRemovalTests.cs" />
