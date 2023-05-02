@@ -9,7 +9,7 @@ namespace WebAddressbookTests
 {
     [TestFixture]
 
-    public class ContactnformationTests : AuthTestBase
+    public class ContactInformationTests : AuthTestBase
     {
         [Test]
         public void TestContactInformation() 
@@ -20,6 +20,18 @@ namespace WebAddressbookTests
             Assert.AreEqual(fromTable, fromForm);
             Assert.AreEqual(fromTable.Address, fromForm.Address);
             Assert.AreEqual(fromTable.AllPhones, fromForm.AllPhones);
+        }
+    }
+
+    public class ContactDetailsInformationTests : AuthTestBase
+    {
+        [Test]
+        public void TestContactDetailsInformation()
+        {
+            string fromDetails = app.Contacts.GetContactInformationFromDetails(0);
+            ContactData fromFormForDetails = app.Contacts.GetContactInformationFromFormForDetails(0);
+
+            Assert.AreEqual(fromDetails, fromFormForDetails.Block);
         }
     }
 }
