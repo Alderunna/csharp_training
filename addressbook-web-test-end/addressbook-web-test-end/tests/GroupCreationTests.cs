@@ -13,6 +13,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Excel = Microsoft.Office.Interop.Excel;
+using Microsoft.Office.Interop.Excel;
 
 namespace WebAddressbookTests
 {
@@ -68,14 +69,15 @@ namespace WebAddressbookTests
             Excel.Workbook wb = app.Workbooks.Open(Path.Combine(Directory.GetCurrentDirectory(), @"groups.xlsx"));
             Excel.Worksheet sheet = wb.ActiveSheet;
             Excel.Range range = sheet.UsedRange;
-            for (int i = 1; i < range.Rows.Count; i++)
+            for (int i = 1; i <= range.Rows.Count; i++)
             {
                 groups.Add(new GroupData()
                 {
-                    Name = range.Cells[i, 1].Value,
-                    Header = range.Cells[i, 2].Value,
-                    Footer = range.Cells[i, 3].Value
-                });
+                    Name = "" + range.Cells[i, 1].Value,
+                    Header = "" + range.Cells[i, 2].Value,
+                    Footer = "" + range.Cells[i, 3].Value,
+
+                }) ;
             }
             wb.Close();
             app.Visible = false;
