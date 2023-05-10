@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfGroupData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <GroupData>
-    <Name>E-3+</Name>
-    <Header>4HM"(</Header>
-    <Footer>KUIC-7.</Footer>
-  </GroupData>
-  <GroupData>
-    <Name>;=\F</Name>
-    <Header>&lt;8</Header>
-    <Footer>)4`DBLY</Footer>
-  </GroupData>
-</ArrayOfGroupData>
+<ArrayOfContactData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <ContactData>
+    <Firstname>-@[9]</Firstname>
+    <Lastname>0VQX])_</Lastname>
+    <Address>CZ*]&lt;VL9</Address>
+    <AllPhones />
+  </ContactData>
+  <ContactData>
+    <Firstname>*(,42</Firstname>
+    <Lastname>J)(+=PH</Lastname>
+    <Address>VZ5B=</Address>
+    <AllPhones />
+  </ContactData>
+</ArrayOfContactData>

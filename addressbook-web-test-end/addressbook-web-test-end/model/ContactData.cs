@@ -7,6 +7,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using WebAddressbookTests;
 
 namespace WebAddressbookTests
@@ -119,7 +120,7 @@ namespace WebAddressbookTests
                 allPhones = value;
             }
         }
-
+        [XmlIgnore]
         public string Block
         {
             get
@@ -173,15 +174,15 @@ namespace WebAddressbookTests
             {
                 return ("Birthday " + BYear + " " + "(" + (DateTime.Now.Year - int.Parse(BYear) - 1) + ")" + "\r\n");
             }
-            else if (BYear == "")
+            else if (BYear == "" || BYear == null)
             {
                 return ("Birthday " + BDay + ". " + BMonth + "\r\n");
             }
-            else if (BMonth == "-")
+            else if (BMonth == "-" || BMonth == null)
             {
                 return ("Birthday " + BDay + ". " + BYear + " " + "(" + (DateTime.Now.Year - int.Parse(BYear) - 1) + ")" + "\r\n");
             }
-            else if (BDay == "0")
+            else if (BDay == "0" || BDay == null)
             {
                 return ("Birthday " + BMonth + " " + BYear + " " + "(" + (DateTime.Now.Year - int.Parse(BYear) - 1) + ")" + "\r\n");
             }
