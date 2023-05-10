@@ -18,33 +18,18 @@ namespace addressbook_test_data_generators
         {
             int count = Convert.ToInt32(args[0]);
             string filename = args[1];
-            //StreamWriter writer = new StreamWriter(args[1]);
             string format = args[2];
-            string type = args[3];
 
             List<GroupData> groups = new List<GroupData>();
-            List<ContactData> contacts = new List<ContactData>();
-
             for (int i = 0; i < count; i++) 
             {
-                if (type == "groups")
+                groups.Add(new GroupData(TestBase.GenerateRandomString(10))
                 {
-                    groups.Add(new GroupData(TestBase.GenerateRandomString(10))
-                    {
-                        Header = TestBase.GenerateRandomString(10),
-                        Footer = TestBase.GenerateRandomString(10)
-                    });
-                }
-                if (type == "contacts")
-                {
-                    contacts.Add(new ContactData(TestBase.GenerateRandomString(10), TestBase.GenerateRandomString(10))
-                    {
-                        Address = TestBase.GenerateRandomString(10)
-                    });
-                }
-            }      
-
-
+                    Header = TestBase.GenerateRandomString(10),
+                    Footer = TestBase.GenerateRandomString(10)
+                });                   
+            }
+            
             if (format == "excel")
             {
                 writeGroupsToExcelFile(groups, filename);
@@ -58,11 +43,7 @@ namespace addressbook_test_data_generators
                 }
                 else if (format == "xml")
                 {
-                    if (type == "groups")
-                    {
-                        writeGroupsToXmlFile(groups, writer);
-                    }
-                    else writeContactsToXmlFile(contacts, writer);
+                    writeGroupsToXmlFile(groups, writer);
                 }
                 else if (format == "json")
                 {
@@ -113,11 +94,6 @@ namespace addressbook_test_data_generators
         static void writeGroupsToXmlFile(List<GroupData> groups, StreamWriter writer)
         {
             new XmlSerializer(typeof(List<GroupData>)).Serialize(writer, groups);
-        }
-
-        private static void writeContactsToXmlFile(List<ContactData> contacts, StreamWriter writer)
-        {
-            new XmlSerializer(typeof(List<ContactData>)).Serialize(writer, contacts);
         }
 
         static void writeGroupsToJsonFile(List<GroupData> groups, StreamWriter writer)

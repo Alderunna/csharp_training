@@ -16,10 +16,6 @@ namespace WebAddressbookTests
         private string allPhones;
         private string block;
 
-        public ContactData()
-        {
-        }
-
         public ContactData(string firstname, string lastname)
         {
             Firstname = firstname;
@@ -318,7 +314,7 @@ namespace WebAddressbookTests
                 return "";
             }
 
-            else if ((MiddleName == null || MiddleName == "") && (Lastname == null || Lastname == ""))
+            else if (MiddleName == null || MiddleName == "" && Lastname == null || Lastname == "")
             {
                 return (Firstname + "\r\n");
             }
@@ -328,7 +324,7 @@ namespace WebAddressbookTests
                 return (MiddleName + "\r\n");
             }
 
-            else if ((Firstname == null || Firstname == "") && (MiddleName == null || MiddleName == ""))
+            else if (Firstname == null || Firstname == "" && MiddleName == null || MiddleName == "")
             {
                 return (Lastname + "\r\n");
             }
