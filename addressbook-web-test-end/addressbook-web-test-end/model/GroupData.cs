@@ -62,8 +62,16 @@ namespace WebAddressbookTests
         [Column(Name = "group_footer")]
         public string Footer { get; set; }
 
-        [Column(Name = "group_id "), PrimaryKey, Identity]
+        [Column(Name = "group_id"), PrimaryKey, Identity]
         public string Id { get; set; }
+
+        public static List<GroupData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB()) //using конструкция - автоматическое закрытие в конце (можно использовать и для файлов и для браузера)
+            {
+                return (from g in db.Groups select g).ToList();
+            }
+        }
 
     }
 }

@@ -366,5 +366,13 @@ namespace WebAddressbookTests
             }           
 
         }
+
+        public static List<ContactData> GetAll()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from c in db.Contacts select c).ToList();
+            }
+        }
     }
 }
