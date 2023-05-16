@@ -21,6 +21,7 @@ namespace WebAddressbookTests
         }
         public ContactHelper Create(ContactData contact)
         {
+
             InitNewContact();
             FillContactForm(contact);
             SubmitContactCreation();
@@ -106,7 +107,7 @@ namespace WebAddressbookTests
 
         public ContactHelper CheckExistContactInGroup()
         {
-            //ContactData contact = new ContactData();
+            
             GroupData group = GroupData.GetAll()[0];
 
             manager.Navigator.GoToContactsPage();
@@ -121,6 +122,39 @@ namespace WebAddressbookTests
             AddContactToGroup(contact, group);
             return this;
         }
+
+
+        //GroupData group = GroupData.GetAll()[0];
+        //List<ContactData> oldList = group.GetContacts();
+        //ContactData contact = ContactData.GetAll().Except(oldList).First();
+
+
+        public ContactHelper CheckNotExistContactInGroup()
+        {
+            ContactData contact = new ContactData("Вот", "Так");
+            GroupData group = GroupData.GetAll()[0];
+            List<ContactData> oldList = group.GetContacts();
+                       
+
+            if (ContactData.GetAll().Except(oldList) == null)
+            {
+                return Create(contact);
+                //return this;
+            }
+            
+            return this;
+        }
+
+
+        
+
+
+
+
+
+
+
+
 
 
 

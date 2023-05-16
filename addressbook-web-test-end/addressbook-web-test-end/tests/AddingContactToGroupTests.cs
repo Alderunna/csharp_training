@@ -15,6 +15,7 @@ namespace WebAddressbookTests
         {
             app.Groups.CheckExistGroups();
             app.Contacts.CheckExistContacts();
+            app.Contacts.CheckNotExistContactInGroup();
 
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> oldList = group.GetContacts();

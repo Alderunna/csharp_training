@@ -27,5 +27,25 @@ namespace addressbook_tests_autoit
             
             Assert.AreEqual(oldGroups, newGroups);
         }
+
+
+        [Test]
+        public void TestGroupCreationCount()
+        {
+            int oldGroups = app.Groups.GetGroupCount();
+
+            GroupData newGroup = new GroupData()
+            {
+                Name = "test"
+            };
+
+            app.Groups.Add(newGroup);
+
+            int newGroups = app.Groups.GetGroupCount();
+            oldGroups++;
+
+
+            Assert.AreEqual(oldGroups, newGroups);
+        }
     }
 }
