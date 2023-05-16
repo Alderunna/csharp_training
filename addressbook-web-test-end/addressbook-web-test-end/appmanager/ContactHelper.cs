@@ -102,6 +102,28 @@ namespace WebAddressbookTests
                 .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
         }
 
+
+
+        public ContactHelper CheckExistContactInGroup()
+        {
+            //ContactData contact = new ContactData();
+            GroupData group = GroupData.GetAll()[0];
+
+            manager.Navigator.GoToContactsPage();
+            SelectGroup(group.Name);
+
+            if (IsElementPresent(By.Name("selected[]")))
+            {
+                return this;
+            }
+            List<ContactData> oldList = group.GetContacts();
+            ContactData contact = ContactData.GetAll().Except(oldList).First();
+            AddContactToGroup(contact, group);
+            return this;
+        }
+
+
+
         private void CommitRemoveContactFromGroup()
         {
             driver.FindElement(By.Name("remove")).Click();
