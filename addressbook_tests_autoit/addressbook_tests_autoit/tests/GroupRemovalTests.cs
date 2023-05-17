@@ -14,15 +14,15 @@ namespace addressbook_tests_autoit
         [Test]
         public void GroupRemovalTest()
         {
-            int oldGroups = app.Groups.GetGroupCount();
+            app.Groups.CheckExistGroups();
 
-            
+
+            int oldGroups = app.Groups.GetGroupCount();            
 
             app.Groups.Remove();
 
             int newGroups = app.Groups.GetGroupCount();
             oldGroups--;
-
 
             Assert.AreEqual(oldGroups, newGroups);
         }

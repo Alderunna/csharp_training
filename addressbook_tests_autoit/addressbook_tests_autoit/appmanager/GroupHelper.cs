@@ -55,16 +55,31 @@ namespace addressbook_tests_autoit
         public void Remove()
         {
             OpenGroupsDialogue();
-            aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "Select", "#0|#0", "");
-            //Thread.Sleep(9000);
-            aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d51");
-            //Thread.Sleep(9000);
+            aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "Select", "#0|#0", "");            
+            aux.ControlClick(GROUPWINTITLE, "", "WindowsForms10.BUTTON.app.0.2c908d51");            
             aux.WinWait(GROUPWINTITLEDELETE);
-            aux.ControlClick(GROUPWINTITLEDELETE, "", "WindowsForms10.BUTTON.app.0.2c908d51");
-            //Thread.Sleep(9000);
+            aux.ControlClick(GROUPWINTITLEDELETE, "", "WindowsForms10.BUTTON.app.0.2c908d51");            
             aux.ControlClick(GROUPWINTITLEDELETE, "", "WindowsForms10.BUTTON.app.0.2c908d53");
             Thread.Sleep(5000);
             CloseGroupsDialogue();
+        }
+
+
+       
+
+
+        public GroupHelper CheckExistGroups()
+        {
+            GroupData group = new GroupData();
+            OpenGroupsDialogue();
+            string gg = aux.ControlTreeView(GROUPWINTITLE, "", "WindowsForms10.SysTreeView32.app.0.2c908d51", "Exists", "#0|#1", "");
+
+            if (int.Parse(gg) == 0)
+            {
+                Add(group);
+            }
+            
+            return this;
         }
 
 
