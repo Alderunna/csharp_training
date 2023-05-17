@@ -135,8 +135,9 @@ namespace WebAddressbookTests
             ContactData contact = new ContactData("Вот", "Так");
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> oldList = group.GetContacts();
-            List<ContactData> newList = (List<ContactData>)ContactData.GetAll().Except(oldList);
-            
+            IList<ContactData> newList = ContactData.GetAll().Except(oldList).ToList();
+
+
 
             if (newList.Count == 0)
             {
@@ -147,7 +148,6 @@ namespace WebAddressbookTests
         }
 
 
-        
 
 
 
