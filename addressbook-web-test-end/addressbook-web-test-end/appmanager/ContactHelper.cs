@@ -1,4 +1,5 @@
-﻿using Microsoft.Office.Interop.Excel;
+﻿using Google.Protobuf.WellKnownTypes;
+using Microsoft.Office.Interop.Excel;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System;
@@ -134,12 +135,12 @@ namespace WebAddressbookTests
             ContactData contact = new ContactData("Вот", "Так");
             GroupData group = GroupData.GetAll()[0];
             List<ContactData> oldList = group.GetContacts();
-                       
+            List<ContactData> newList = (List<ContactData>)ContactData.GetAll().Except(oldList);
+            
 
-            if (ContactData.GetAll().Except(oldList) == null)
+            if (newList.Count == 0)
             {
-                return Create(contact);
-                //return this;
+                Create(contact);                
             }
             
             return this;

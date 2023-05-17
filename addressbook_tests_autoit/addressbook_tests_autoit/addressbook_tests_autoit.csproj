@@ -77,6 +77,7 @@
     <Compile Include="appmanager\GroupHelper.cs" />
     <Compile Include="appmanager\HelperBase.cs" />
     <Compile Include="model\GroupData.cs" />
+    <Compile Include="tests\GroupRemovalTests.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="tests\GroupCreationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
