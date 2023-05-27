@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,17 +9,16 @@ namespace mantis_project
 {
     public class TestBase
     {
-        public static bool PERFORM_LONG_UI_CHEKS = true;
+        
         protected ApplicationManager app;
 
-        [TestFixtureSetUp]
+        [SetUp]
         public void SetupApplicationManager()
         {
             app = ApplicationManager.GetInstance();
         }
 
         public static Random rnd = new Random();
-
         public static string GenerateRandomString(int max)
         {
 
@@ -30,5 +30,7 @@ namespace mantis_project
             }
             return builder.ToString();
         }
+
+
     }
 }

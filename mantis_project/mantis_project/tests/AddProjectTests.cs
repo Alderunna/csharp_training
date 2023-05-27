@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,42 +7,34 @@ using NUnit.Framework;
 
 namespace mantis_project
 {
-    
-        [TestFixture]
-        public class AddProjectTests : TestBase
-        {
+    [TestFixture]
+    public class AddProjectTests : AuthTestBase
+    {
 
-        public static IEnumerable<ProjectData> RandomGroupDataProvider()
+        public static IEnumerable<ProjectData> RandomProjectDataProvider()
         {
             List<ProjectData> projects = new List<ProjectData>();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 1; i++)
             {
                 projects.Add(new ProjectData(GenerateRandomString(30)));
-                
+
             }
             return projects;
         }
 
-        [Test]
-            public void AddProjectTest()
-            {
-                List<ProjectData> oldGroups = app.Projects.GetGroupList();
+        [Test, TestCaseSource("RandomProjectDataProvider")]
+        public void AddProjectTest(ProjectData project)
+        {
 
-            ProjectData newGroup = new ProjectData()
-                {
-                    Name = "test"
-                };
+            
+            List<ProjectData> oldProjects = app.Projects.GetProjectList();
 
-                app.Groups.Add(newGroup);
+            app.Projects.Create(project);
 
-                List<ProjectData> newGroups = app.Groups.GetGroupList();
-                oldGroups.Add(newGroup);
-                oldGroups.Sort();
-                newGroups.Sort();
+            List<ProjectData> newProjects = app.Projects.GetProjectList();
 
 
-                Assert.AreEqual(oldGroups, newGroups);
-            }
+            Assert.AreEqual(oldProjects.Count + 1, newProjects.Count);
         }
-    
+    }
 }

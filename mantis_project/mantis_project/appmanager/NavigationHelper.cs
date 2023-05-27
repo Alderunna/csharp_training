@@ -25,15 +25,17 @@ namespace mantis_project
             driver.Navigate().GoToUrl(baseURL + "/mantisbt-2.25.7/login_page.php");
         }
 
-        public void GoToGroupsPage()
+        
+
+        internal void GoToProjectPage()
         {
-            if (driver.Url == baseURL + "/addressbook/group.php"
-                && IsElementPresent(By.Name("new")))
+            if (driver.Url == baseURL + "/addressbook/"
+        && IsElementPresent(By.XPath("//button[@type='submit']")))
             {
                 return;
             }
-            driver.FindElement(By.LinkText("groups")).Click();
+            driver.FindElement(By.CssSelector("i.fa.fa-gears.menu-icon")).Click();
+            driver.FindElement(By.LinkText("Управление проектами")).Click();
         }
     }
-}
-
+}   

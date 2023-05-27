@@ -15,6 +15,8 @@ namespace mantis_project
         protected string baseURL;
 
         protected LoginHelper loginHelper;
+        protected NavigationHelper navigator;
+        protected ProjectHelper projectHelper;
 
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
@@ -26,7 +28,9 @@ namespace mantis_project
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
             baseURL = "http://localhost";
             loginHelper = new LoginHelper(this);
-            
+            navigator = new NavigationHelper(this, baseURL);
+            projectHelper = new ProjectHelper(this);
+
         }
 
         ~ApplicationManager()
@@ -46,7 +50,7 @@ namespace mantis_project
             if (!app.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
-                newInstance.Navigator.GoToHomePage();
+                newInstance.Navigator.GoToLoginPage();
                 app.Value = newInstance;
             }
 
@@ -67,6 +71,22 @@ namespace mantis_project
             get
             {
                 return loginHelper;
+            }
+        }
+
+        public ProjectHelper Projects
+        {
+            get
+            {
+                return projectHelper;
+            }
+        }
+
+        public NavigationHelper Navigator
+        {
+            get
+            {
+                return navigator;
             }
         }
     }
