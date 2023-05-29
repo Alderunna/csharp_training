@@ -16,7 +16,7 @@ namespace mantis_project
         [Test]
         public void RemoveProjectTest()
         {
-            app.Projects.CheckExistProjects();
+            app.Projects.CheckExistProjectsMantis();
 
             List<ProjectData> oldProjects = app.Projects.GetProjectList();
           

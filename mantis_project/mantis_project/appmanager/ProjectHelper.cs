@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools.V113.FedCm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -98,6 +99,30 @@ namespace mantis_project
                 return this;
             }
             Create(project);
+            return this;
+        }
+
+        public ProjectHelper CheckExistProjectsMantis()
+        {
+            //ProjectData project = new ProjectData("fff");
+
+            manager.Navigator.GoToProjectPage();
+
+            if (IsElementPresent(By.XPath("//td/a")))
+            {
+                return this;
+            }
+
+            AccountData account = new AccountData()
+            {
+                Username = "administrator",
+                Password = "root"
+            };
+            ProjectData name = new ProjectData()
+            {
+                Name = "some text"
+            };
+            manager.API.CreateNewProject(account, name);
             return this;
         }
     }

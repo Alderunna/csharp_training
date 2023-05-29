@@ -28,12 +28,13 @@ namespace mantis_tests
             IWebDriver driver = OpenAppAndLogin();
             driver.Url = baseUrl + "/manage_user_page.php";
             //IList<IWebElement> rows = driver.FindElements(By.XPath("//tr/td/a"));
-            IList<IWebElement> rows = driver.FindElements(By.CssSelector("table.tr.row-1, table.tr.row-2"));
+            //IList<IWebElement> rows = driver.FindElements(By.CssSelector("table.tr.row-1, table.tr.row-2"));
+            IList<IWebElement> rows = driver.FindElements(By.XPath("//a[contains(@href,'manage_user_edit_page.php')]"));
             foreach (IWebElement row in rows)
             {
-                IWebElement link = row.FindElement(By.TagName("a"));
-                string name = link.Text;
-                string href = link.GetAttribute("href");
+                //IWebElement link = row.FindElement(By.TagName("a"));
+                string name = row.Text;
+                string href = row.GetAttribute("href");
                 Match m = Regex.Match(href, @"\d+$");
                 string id = m.Value;
 
