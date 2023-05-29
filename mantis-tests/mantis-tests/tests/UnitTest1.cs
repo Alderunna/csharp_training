@@ -3,7 +3,7 @@ using System;
 
 namespace mantis_tests.tests
 {
-    [TestFixture]
+    [SetUpFixture]
     public class UnitTest1 : TestBase
     {
         [Test]
