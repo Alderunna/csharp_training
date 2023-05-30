@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using OpenQA.Selenium.DevTools.V113.FedCm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,27 @@ namespace mantis_project
             app.Projects.Remove(0);
 
             List<ProjectData> newProjects = app.Projects.GetProjectList();
+
+
+            Assert.AreEqual(oldProjects.Count - 1, newProjects.Count);
+        }
+
+        [Test]
+        public void RemoveProjectTestMantis()
+        {
+            app.Projects.CheckExistProjectsMantis();
+
+            AccountData account = new AccountData()
+            {
+                Username = "administrator",
+                Password = "root"
+            };
+
+            List<ProjectData> oldProjects = app.API.GetListProjects(account);
+
+            app.Projects.Remove(0);
+
+            List<ProjectData> newProjects = app.API.GetListProjects(account);
 
 
             Assert.AreEqual(oldProjects.Count - 1, newProjects.Count);

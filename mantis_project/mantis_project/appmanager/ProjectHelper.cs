@@ -27,6 +27,8 @@ namespace mantis_project
             return projects;
         }
 
+        
+
         public ProjectHelper Create(ProjectData project)
         {
             manager.Navigator.GoToProjectPage();

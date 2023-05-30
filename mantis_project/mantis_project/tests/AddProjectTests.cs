@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using OpenQA.Selenium.DevTools.V113.FedCm;
 
 namespace mantis_project
 {
@@ -32,6 +34,25 @@ namespace mantis_project
             app.Projects.Create(project);
 
             List<ProjectData> newProjects = app.Projects.GetProjectList();
+
+
+            Assert.AreEqual(oldProjects.Count + 1, newProjects.Count);
+        }
+
+
+        [Test, TestCaseSource("RandomProjectDataProvider")]
+        public void AddProjectTestMantis(ProjectData project)
+        {
+            AccountData account = new AccountData()
+            {
+                Username = "administrator",
+                Password = "root"
+            };
+
+            List<ProjectData> oldProjects = app.API.GetListProjects(account);
+            app.Projects.Create(project);
+
+            List<ProjectData> newProjects = app.API.GetListProjects(account);
 
 
             Assert.AreEqual(oldProjects.Count + 1, newProjects.Count);
